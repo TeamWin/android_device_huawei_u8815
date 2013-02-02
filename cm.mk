@@ -5,7 +5,7 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/huawei/u8815/u8815.mk)
+$(call inherit-product, device/huawei/u8815/device_u8815.mk)
 
 #
 # Setup device specific product configuration.

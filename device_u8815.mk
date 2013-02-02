@@ -23,9 +23,12 @@ DEVICE_PACKAGE_OVERLAYS += device/huawei/u8815/overlay
 
 # Files needed for recovery image
 PRODUCT_COPY_FILES += \
-  device/huawei/u8815/recovery/sbin/charge:/root/sbin/charge \
-  device/huawei/u8815/recovery/sbin/rmt_storage:/root/sbin/rmt_storage \
-  device/huawei/u8815/recovery/sbin/postrecoveryboot.sh:/root/sbin/postrecoveryboot.sh
+  device/huawei/u8815/recovery/sbin/charge:/recovery/root/sbin/charge \
+  device/huawei/u8815/recovery/sbin/rmt_storage:/recovery/root/sbin/rmt_storage \
+  device/huawei/u8815/recovery/sbin/rmt_oeminfo:/recovery/root/sbin/rmt_oeminfo \
+  device/huawei/u8815/recovery/sbin/libhwrpc.so:/recovery/root/sbin/libhwrpc.so \
+  device/huawei/u8815/recovery/sbin/liboeminfo.so:/recovery/root/sbin/liboeminfo.so \
+  device/huawei/u8815/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh
 
 # Device Naming
 PRODUCT_NAME := full_u8815

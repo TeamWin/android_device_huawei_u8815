@@ -3,7 +3,7 @@ on early-init
 
 on init
     export PATH /sbin
-    export LD_LIBRARY_PATH .:/sbin
+    export LD_LIBRARY_PATH .:/sbin:/system/lib
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -19,6 +19,7 @@ on init
     mkdir /system
     mkdir /data
     mkdir /cache
+    mkdir /internal_sd
     mount /tmp /tmp tmpfs
 
 # Always start adbd on userdebug and eng builds
@@ -40,12 +41,26 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
 
 service rmt_storage /sbin/rmt_storage
+    class main
     user root
+    disabled
+ 
+service rmt_oeminfo /sbin/rmt_oeminfo
+    class main
+    user root
+    oneshot
+ 
+on property:ro.boot.emmc=true
+    start rmt_oeminfo
+    start rmt_storage
 
 service ueventd /sbin/ueventd
     critical
 
-service recovery /sbin/recovery
+service recovery /sbin/sh /sbin/charge.sh
+    oneshot
+
+service charge /sbin/charge
     oneshot
 
 service adbd /sbin/adbd recovery
