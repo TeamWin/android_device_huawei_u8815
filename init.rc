@@ -3,7 +3,7 @@ on early-init
 
 on init
     export PATH /sbin
-    export LD_LIBRARY_PATH .:/sbin:/system/lib
+    export LD_LIBRARY_PATH .:/sbin
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -13,22 +13,25 @@ on init
     mkdir /boot
     mkdir /sdcard
     mkdir /sd-ext
-    mkdir /datadata
     mkdir /cust
+    mkdir /datadata
     mkdir /emmc
+    mkdir /internal_sd
     mkdir /system
     mkdir /data
     mkdir /cache
-    mkdir /internal_sd
     mount /tmp /tmp tmpfs
+
+    chown root shell /tmp
+    chmod 0775 /tmp
 
 # Always start adbd on userdebug and eng builds
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1038
+    write /sys/class/android_usb/android0/functions mass_storage,adb
     write /sys/class/android_usb/android0/f_mass_storage/cdrom_index none
     write /sys/class/android_usb/android0/f_mass_storage/nluns 2
-    write /sys/class/android_usb/android0/functions mass_storage,adb
 
 on boot
     ifup lo
@@ -36,28 +39,14 @@ on boot
     domainname localdomain
 
     class_start default
-
+	
 service ueventd /sbin/ueventd
     critical
-
-service recovery /sbin/recovery
 
 service adbd /sbin/adbd recovery
     disabled
 
-service rmt_storage /sbin/rmt_storage
-    class main
-    user root
-    disabled
- 
-service rmt_oeminfo /sbin/rmt_oeminfo
-    class main
-    user root
-    oneshot
- 
-on property:ro.boot.emmc=true
-    start rmt_oeminfo
-    start rmt_storage
+service recovery /sbin/recovery
 
 service recovery /sbin/sh /sbin/charge.sh
     oneshot
@@ -65,8 +54,16 @@ service recovery /sbin/sh /sbin/charge.sh
 service charge /sbin/charge
     oneshot
 
+service rmt_storage /sbin/rmt_storage
+   
+ 
+service rmt_oeminfo /sbin/rmt_oeminfo
+    oneshot
+
 #start adbd
 on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
     setprop service.adb.root 1
 
 # Restart adbd so it can run as root

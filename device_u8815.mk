@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Inherit common language setup
+$(call inherit-product, build/target/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Inherit u8815 vendor setup
@@ -29,9 +30,3 @@ PRODUCT_COPY_FILES += \
   device/huawei/u8815/recovery/sbin/libhwrpc.so:/recovery/root/sbin/libhwrpc.so \
   device/huawei/u8815/recovery/sbin/liboeminfo.so:/recovery/root/sbin/liboeminfo.so \
   device/huawei/u8815/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh
-
-# Device Naming
-PRODUCT_NAME := full_u8815
-PRODUCT_DEVICE := u8815
-PRODUCT_BRAND := huawei
-PRODUCT_MODEL := Huawei Ascend G300
