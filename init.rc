@@ -25,15 +25,8 @@ on init
     chown root shell /tmp
     chmod 0775 /tmp
 
-# Always start adbd on userdebug and eng builds
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 12d1
-    write /sys/class/android_usb/android0/idProduct 1038
-    write /sys/class/android_usb/android0/functions mass_storage,adb
-    write /sys/class/android_usb/android0/f_mass_storage/cdrom_index none
-    write /sys/class/android_usb/android0/f_mass_storage/nluns 2
-
 on boot
+
     ifup lo
     hostname localhost
     domainname localdomain
@@ -43,22 +36,31 @@ on boot
 service ueventd /sbin/ueventd
     critical
 
-service adbd /sbin/adbd recovery
-    disabled
+service rmt_storage /sbin/rmt_storage_recovery
+    user root
 
-service recovery /sbin/recovery
+service rmt_oeminfo /sbin/rmt_oeminfo_recovery
+    oneshot
 
 service recovery /sbin/sh /sbin/charge.sh
     oneshot
 
-service charge /sbin/charge
+service charge /sbin/charge_recovery
     oneshot
 
-service rmt_storage /sbin/rmt_storage
-   
- 
-service rmt_oeminfo /sbin/rmt_oeminfo
+service recovery /sbin/recovery
     oneshot
+
+service adbd /sbin/adbd recovery
+    disabled
+
+# Always start adbd on userdebug and eng builds
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 1038
+    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/android0/f_mass_storage/cdrom_index none
+    write /sys/class/android_usb/android0/f_mass_storage/nluns 2
 
 #start adbd
 on property:ro.debuggable=1
