@@ -50,7 +50,7 @@ service rmt_storage /sbin/rmt_storage_recovery
 service rmt_oeminfo /sbin/rmt_oeminfo_recovery
     oneshot
 
-service init_charge /sbin/sh /sbin/charge.sh
+service recovery /sbin/sh /sbin/charge.sh
     oneshot
 
 service charge /sbin/charge_recovery
