@@ -24,7 +24,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Architecture
-TARGER_ARCH := arm
+TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -63,7 +63,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/u8815/kernel
 TARGET_RECOVERY_INITRC := device/huawei/u8815/init.rc
 TARGET_RECOVERY_FSTAB := device/huawei/u8815/recovery.fstab
-BOARD_RECOVERY_RMT_STORAGE := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_USES_MMCUTILS := true
