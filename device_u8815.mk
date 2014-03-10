@@ -26,8 +26,8 @@ DEVICE_PACKAGE_OVERLAYS += device/huawei/u8815/overlay
 PRODUCT_COPY_FILES += \
   device/huawei/u8815/recovery/sbin/charge_recovery:/recovery/root/sbin/charge_recovery \
   device/huawei/u8815/recovery/sbin/rmt_storage_recovery:/recovery/root/sbin/rmt_storage_recovery \
-device/huawei/u8815/recovery/sbin/rmt_oeminfo_recovery:/recovery/root/sbin/rmt_oeminfo_recovery \
-device/huawei/u8815/recovery/sbin/linker:/recovery/root/sbin/linker \
+  device/huawei/u8815/recovery/sbin/rmt_oeminfo_recovery:/recovery/root/sbin/rmt_oeminfo_recovery \
+  device/huawei/u8815/recovery/sbin/linker:/recovery/root/sbin/linker \
   device/huawei/u8815/recovery/sbin/libhwrpc.so:/recovery/root/sbin/libhwrpc.so \
   device/huawei/u8815/recovery/sbin/liboeminfo.so:/recovery/root/sbin/liboeminfo.so \
   device/huawei/u8815/recovery/sbin/charge.sh:/recovery/root/sbin/charge.sh
